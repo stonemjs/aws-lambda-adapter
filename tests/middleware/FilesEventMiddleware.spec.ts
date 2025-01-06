@@ -48,7 +48,6 @@ describe('FilesEventMiddleware', () => {
   it('should skip file upload handling if the request is not multipart', async () => {
     vi.mocked(isMultipart).mockReturnValue(false)
 
-    // @ts-expect-error
     mockContext.rawEvent.headers = { 'Content-Type': 'multipart/form-data' }
 
     await middleware.handle(mockContext, next)

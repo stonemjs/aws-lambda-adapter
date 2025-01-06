@@ -1,4 +1,4 @@
-[**AWS Lambda Adapter Documentation v0.0.0**](../../README.md)
+[**AWS Lambda Adapter Documentation v0.0.2**](../../README.md)
 
 ***
 
@@ -7,6 +7,8 @@
 # Function: awsLambdaHttpAdapterResolver()
 
 > **awsLambdaHttpAdapterResolver**(`blueprint`): `IAdapter`
+
+Defined in: [src/resolvers.ts:34](https://github.com/stonemjs/aws-lambda-adapter/blob/9de4b38bb7a5afd4d5599dae1399969698a2422d/src/resolvers.ts#L34)
 
 Adapter resolver for AWS Lambda HTTP adapter.
 
@@ -25,7 +27,3 @@ The `IBlueprint` providing configuration and dependencies.
 `IAdapter`
 
 An `AWSLambdaHttpAdapter` instance.
-
-## Defined in
-
-[src/resolvers.ts:138](https://github.com/stonemjs/aws-lambda-adapter/blob/f00bc5adf35a7d817c9d8d34c42561c4c82e758d/src/resolvers.ts#L138)

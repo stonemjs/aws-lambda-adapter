@@ -1,11 +1,12 @@
+import deepmerge from 'deepmerge'
 import { addBlueprint, ClassType } from '@stone-js/core'
-import { awsLambaHttpAdapterBlueprint, AwsLambaHttpAdapterConfig } from '../options/AwsLambdaHttpAdapterBlueprint'
+import { awsLambdaHttpAdapterBlueprint, AwsLambdaHttpAdapterConfig } from '../options/AwsLambdaHttpAdapterBlueprint'
 
 /**
- * Configuration options for the `AwsLambdaHttpAdapter` decorator.
+ * Configuration options for the `AwsLambdaHttp` decorator.
  * These options extend the default AWS Lambda HTTP adapter configuration.
  */
-export interface AwsLambdaHttpAdapterOptions extends Partial<AwsLambaHttpAdapterConfig> {}
+export interface AwsLambdaHttpOptions extends Partial<AwsLambdaHttpAdapterConfig> {}
 
 /**
  * A Stone.js decorator that integrates the AWS Lambda HTTP Adapter with a class.
@@ -21,9 +22,9 @@ export interface AwsLambdaHttpAdapterOptions extends Partial<AwsLambaHttpAdapter
  *
  * @example
  * ```typescript
- * import { AwsLambdaHttpAdapter } from '@stone-js/aws-lambda-adapter';
+ * import { AwsLambdaHttp } from '@stone-js/aws-lambda-adapter';
  *
- * @AwsLambdaHttpAdapter({
+ * @AwsLambdaHttp({
  *   alias: 'MyAwsLambdaHttpAdapter',
  *   current: true,
  * })
@@ -32,19 +33,16 @@ export interface AwsLambdaHttpAdapterOptions extends Partial<AwsLambaHttpAdapter
  * }
  * ```
  */
-export const AwsLambdaHttpAdapter = <T extends ClassType = ClassType>(
-  options: AwsLambdaHttpAdapterOptions = {}
+export const AwsLambdaHttp = <T extends ClassType = ClassType>(
+  options: AwsLambdaHttpOptions = {}
 ): ((target: T, context: ClassDecoratorContext<T>) => void) => {
   return (target: T, context: ClassDecoratorContext<T>) => {
-    if (awsLambaHttpAdapterBlueprint.stone?.adapters?.[0] !== undefined) {
+    if (awsLambdaHttpAdapterBlueprint.stone?.adapters?.[0] !== undefined) {
       // Merge provided options with the default AWS Lambda HTTP adapter blueprint.
-      awsLambaHttpAdapterBlueprint.stone.adapters[0] = {
-        ...awsLambaHttpAdapterBlueprint.stone.adapters[0],
-        ...options
-      }
+      awsLambdaHttpAdapterBlueprint.stone.adapters[0] = deepmerge(awsLambdaHttpAdapterBlueprint.stone.adapters[0], options)
     }
 
     // Add the modified blueprint to the target class.
-    addBlueprint(target, context, awsLambaHttpAdapterBlueprint)
+    addBlueprint(target, context, awsLambdaHttpAdapterBlueprint)
   }
 }

@@ -16,16 +16,11 @@ vi.mock('statuses')
 
 describe('ServerResponseMiddleware', () => {
   let next: Mock
-  let mockBlueprint: any
   let middleware: ServerResponseMiddleware
   let mockContext: AwsLambdaHttpAdapterContext
 
   beforeEach(() => {
-    mockBlueprint = {
-      get: vi.fn(() => ({}))
-    }
-
-    middleware = new ServerResponseMiddleware({ blueprint: mockBlueprint })
+    middleware = new ServerResponseMiddleware()
 
     mockContext = {
       rawEvent: {},
@@ -45,7 +40,7 @@ describe('ServerResponseMiddleware', () => {
       }
     } as unknown as AwsLambdaHttpAdapterContext
 
-    next = vi.fn()
+    next = vi.fn(() => mockContext.rawResponseBuilder)
     vi.mocked(statuses).mockReturnValue({ message: { 500: 'Internal Server Error' } } as any)
   })
 
@@ -101,7 +96,6 @@ describe('ServerResponseMiddleware', () => {
     // @ts-expect-error
     mockContext.outgoingResponse.file = mockFile
 
-    vi.mocked(mockBlueprint.get).mockReturnValue({})
     // @ts-expect-error
     vi.mocked(mockContext.incomingEvent.isMethod).mockReturnValue(false)
 

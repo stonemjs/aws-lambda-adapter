@@ -1,10 +1,12 @@
-[**AWS Lambda Adapter Documentation v0.0.0**](../../../README.md)
+[**AWS Lambda Adapter Documentation v0.0.2**](../../../README.md)
 
 ***
 
 [AWS Lambda Adapter Documentation](../../../modules.md) / [middleware/IncomingEventMiddleware](../README.md) / IncomingEventMiddleware
 
 # Class: IncomingEventMiddleware
+
+Defined in: [src/middleware/IncomingEventMiddleware.ts:37](https://github.com/stonemjs/aws-lambda-adapter/blob/9de4b38bb7a5afd4d5599dae1399969698a2422d/src/middleware/IncomingEventMiddleware.ts#L37)
 
 Middleware for handling incoming events and transforming them into Stone.js events.
 
@@ -16,6 +18,8 @@ headers, cookies, and more, and forwards them to the next middleware in the pipe
 ### new IncomingEventMiddleware()
 
 > **new IncomingEventMiddleware**(`options`): [`IncomingEventMiddleware`](IncomingEventMiddleware.md)
+
+Defined in: [src/middleware/IncomingEventMiddleware.ts:48](https://github.com/stonemjs/aws-lambda-adapter/blob/9de4b38bb7a5afd4d5599dae1399969698a2422d/src/middleware/IncomingEventMiddleware.ts#L48)
 
 Create an IncomingEventMiddleware instance.
 
@@ -33,15 +37,13 @@ Options containing the blueprint for resolving configuration and dependencies.
 
 [`IncomingEventMiddleware`](IncomingEventMiddleware.md)
 
-#### Defined in
-
-[src/middleware/IncomingEventMiddleware.ts:55](https://github.com/stonemjs/aws-lambda-adapter/blob/f00bc5adf35a7d817c9d8d34c42561c4c82e758d/src/middleware/IncomingEventMiddleware.ts#L55)
-
 ## Methods
 
 ### handle()
 
-> **handle**(`context`, `next`): `Promise`\<[`RawHttpResponseWrapper`](../../../RawHttpResponseWrapper/classes/RawHttpResponseWrapper.md)\>
+> **handle**(`context`, `next`): `Promise`\<[`AwsLambdaHttpAdapterResponseBuilder`](../../../declarations/type-aliases/AwsLambdaHttpAdapterResponseBuilder.md)\>
+
+Defined in: [src/middleware/IncomingEventMiddleware.ts:60](https://github.com/stonemjs/aws-lambda-adapter/blob/9de4b38bb7a5afd4d5599dae1399969698a2422d/src/middleware/IncomingEventMiddleware.ts#L60)
 
 Handles the incoming event, processes it, and invokes the next middleware in the pipeline.
 
@@ -55,20 +57,16 @@ The adapter context containing the raw event, execution context, and other data.
 
 ##### next
 
-`NextPipe`\<[`AwsLambdaHttpAdapterContext`](../../../declarations/interfaces/AwsLambdaHttpAdapterContext.md), [`RawHttpResponseWrapper`](../../../RawHttpResponseWrapper/classes/RawHttpResponseWrapper.md)\>
+`NextPipe`\<[`AwsLambdaHttpAdapterContext`](../../../declarations/interfaces/AwsLambdaHttpAdapterContext.md), [`AwsLambdaHttpAdapterResponseBuilder`](../../../declarations/type-aliases/AwsLambdaHttpAdapterResponseBuilder.md)\>
 
 The next middleware to be invoked in the pipeline.
 
 #### Returns
 
-`Promise`\<[`RawHttpResponseWrapper`](../../../RawHttpResponseWrapper/classes/RawHttpResponseWrapper.md)\>
+`Promise`\<[`AwsLambdaHttpAdapterResponseBuilder`](../../../declarations/type-aliases/AwsLambdaHttpAdapterResponseBuilder.md)\>
 
 A promise that resolves to the processed context.
 
 #### Throws
 
 If required components are missing in the context.
-
-#### Defined in
-
-[src/middleware/IncomingEventMiddleware.ts:67](https://github.com/stonemjs/aws-lambda-adapter/blob/f00bc5adf35a7d817c9d8d34c42561c4c82e758d/src/middleware/IncomingEventMiddleware.ts#L67)

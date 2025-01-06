@@ -1,7 +1,7 @@
 import { RawResponseWrapper } from './RawResponseWrapper'
 import { AwsLambdaAdapterError } from './errors/AwsLambdaAdapterError'
 import { AwsLambdaContext, AwsLambdaEvent, AwsLambdaEventHandlerFunction, RawResponse, AwsLambdaAdapterContext } from './declarations'
-import { Adapter, AdapterEventBuilder, AdapterOptions, IncomingEvent, IncomingEventOptions, OutgoingResponse, RawResponseOptions } from '@stone-js/core'
+import { Adapter, AdapterEventBuilder, AdapterOptions, IncomingEvent, IncomingEventOptions, LifecycleEventHandler, OutgoingResponse, RawResponseOptions } from '@stone-js/core'
 
 /**
  * AWS Lambda Adapter for Stone.js.
@@ -57,9 +57,7 @@ AwsLambdaAdapterContext
    *                  handler resolver, error handling, and other settings.
    * @returns A fully initialized `AWSLambdaAdapter` instance.
    */
-  static create (
-    options: AdapterOptions<RawResponse, IncomingEvent, OutgoingResponse>
-  ): AWSLambdaAdapter {
+  static create (options: AdapterOptions<IncomingEvent, OutgoingResponse>): AWSLambdaAdapter {
     return new this(options)
   }
 
@@ -112,10 +110,11 @@ AwsLambdaAdapterContext
    * @param executionContext - The AWS Lambda execution context for the event.
    * @returns A promise resolving to the processed `RawResponse`.
    */
-  protected async eventListener (
-    rawEvent: AwsLambdaEvent,
-    executionContext: AwsLambdaContext
-  ): Promise<RawResponse> {
+  protected async eventListener (rawEvent: AwsLambdaEvent, executionContext: AwsLambdaContext): Promise<RawResponse> {
+    const eventHandler = this.handlerResolver(this.blueprint) as LifecycleEventHandler<IncomingEvent, OutgoingResponse>
+
+    await this.onPrepare(eventHandler)
+
     const incomingEventBuilder = AdapterEventBuilder.create<IncomingEventOptions, IncomingEvent>({
       resolver: (options) => IncomingEvent.create(options)
     })
@@ -126,7 +125,7 @@ AwsLambdaAdapterContext
 
     const rawResponse: RawResponse = {}
 
-    return await this.sendEventThroughDestination({
+    return await this.sendEventThroughDestination(eventHandler, {
       rawEvent,
       rawResponse,
       executionContext,

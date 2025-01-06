@@ -97,7 +97,7 @@ describe('BodyEventMiddleware', () => {
     vi.mocked(typeIs.hasBody).mockReturnValue(true)
     vi.mocked(getCharset).mockReturnValue('utf-8')
     vi.mocked(typeIs.is).mockReturnValue('json')
-    // @ts-expect-error
+
     mockContext.rawEvent.body = { key: 'value' }
 
     await middleware.handle(mockContext, next)
@@ -112,7 +112,7 @@ describe('BodyEventMiddleware', () => {
     vi.mocked(typeIs.hasBody).mockReturnValue(true)
     vi.mocked(getCharset).mockReturnValue('utf-8')
     vi.mocked(typeIs.is).mockReturnValue('text')
-    // @ts-expect-error
+
     mockContext.rawEvent.body = '<h1>Hello, world!</h1>'
 
     await middleware.handle(mockContext, next)
@@ -128,7 +128,6 @@ describe('BodyEventMiddleware', () => {
     vi.mocked(bytes.parse).mockReturnValue(102400)
     Buffer.byteLength = vi.fn().mockReturnValue(999999999)
 
-    // @ts-expect-error
     mockContext.rawEvent.headers = { 'Content-Type': 'multipart/form-data', 'Content-Length': '999999999' }
 
     await expect(async () => await middleware.handle(mockContext, next)).rejects.toThrow(AwsLambdaAdapterError)

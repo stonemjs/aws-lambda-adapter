@@ -1,10 +1,12 @@
-[**AWS Lambda Adapter Documentation v0.0.0**](../../README.md)
+[**AWS Lambda Adapter Documentation v0.0.2**](../../README.md)
 
 ***
 
 [AWS Lambda Adapter Documentation](../../modules.md) / [AWSLambdaAdapter](../README.md) / AWSLambdaAdapter
 
 # Class: AWSLambdaAdapter
+
+Defined in: [src/AWSLambdaAdapter.ts:40](https://github.com/stonemjs/aws-lambda-adapter/blob/9de4b38bb7a5afd4d5599dae1399969698a2422d/src/AWSLambdaAdapter.ts#L40)
 
 AWS Lambda Adapter for Stone.js.
 
@@ -70,13 +72,15 @@ export { handler };
 
 > `protected` **new AWSLambdaAdapter**(`options`): [`AWSLambdaAdapter`](AWSLambdaAdapter.md)
 
+Defined in: node\_modules/@stone-js/core/dist/index.d.ts:1876
+
 Create an Adapter.
 
 #### Parameters
 
 ##### options
 
-`AdapterOptions`\<[`RawResponse`](../../declarations/type-aliases/RawResponse.md), `IncomingEvent`, `OutgoingResponse`\>
+`AdapterOptions`\<`IncomingEvent`, `OutgoingResponse`\>
 
 Adapter options.
 
@@ -86,25 +90,15 @@ Adapter options.
 
 #### Inherited from
 
-`Adapter<
-AwsLambdaEvent,
-RawResponse,
-AwsLambdaContext,
-IncomingEvent,
-IncomingEventOptions,
-OutgoingResponse,
-AwsLambdaAdapterContext
->.constructor`
-
-#### Defined in
-
-node\_modules/@stone-js/core/dist/index.d.ts:1772
+`Adapter< AwsLambdaEvent, RawResponse, AwsLambdaContext, IncomingEvent, IncomingEventOptions, OutgoingResponse, AwsLambdaAdapterContext >.constructor`
 
 ## Methods
 
 ### eventListener()
 
 > `protected` **eventListener**(`rawEvent`, `executionContext`): `Promise`\<[`RawResponse`](../../declarations/type-aliases/RawResponse.md)\>
+
+Defined in: [src/AWSLambdaAdapter.ts:113](https://github.com/stonemjs/aws-lambda-adapter/blob/9de4b38bb7a5afd4d5599dae1399969698a2422d/src/AWSLambdaAdapter.ts#L113)
 
 Processes an incoming AWS Lambda event.
 
@@ -131,15 +125,13 @@ The AWS Lambda execution context for the event.
 
 A promise resolving to the processed `RawResponse`.
 
-#### Defined in
-
-[src/AWSLambdaAdapter.ts:115](https://github.com/stonemjs/aws-lambda-adapter/blob/f00bc5adf35a7d817c9d8d34c42561c4c82e758d/src/AWSLambdaAdapter.ts#L115)
-
 ***
 
 ### onInit()
 
 > `protected` **onInit**(): `Promise`\<`void`\>
+
+Defined in: [src/AWSLambdaAdapter.ts:93](https://github.com/stonemjs/aws-lambda-adapter/blob/9de4b38bb7a5afd4d5599dae1399969698a2422d/src/AWSLambdaAdapter.ts#L93)
 
 Initializes the adapter and validates its execution context.
 
@@ -158,15 +150,13 @@ If executed outside an AWS Lambda context (e.g., browser).
 
 `Adapter.onInit`
 
-#### Defined in
-
-[src/AWSLambdaAdapter.ts:95](https://github.com/stonemjs/aws-lambda-adapter/blob/f00bc5adf35a7d817c9d8d34c42561c4c82e758d/src/AWSLambdaAdapter.ts#L95)
-
 ***
 
 ### run()
 
 > **run**\<`ExecutionResultType`\>(): `Promise`\<`ExecutionResultType`\>
+
+Defined in: [src/AWSLambdaAdapter.ts:75](https://github.com/stonemjs/aws-lambda-adapter/blob/9de4b38bb7a5afd4d5599dae1399969698a2422d/src/AWSLambdaAdapter.ts#L75)
 
 Executes the adapter and provides an AWS Lambda-compatible handler function.
 
@@ -194,15 +184,13 @@ If used outside the AWS Lambda environment.
 
 `Adapter.run`
 
-#### Defined in
-
-[src/AWSLambdaAdapter.ts:77](https://github.com/stonemjs/aws-lambda-adapter/blob/f00bc5adf35a7d817c9d8d34c42561c4c82e758d/src/AWSLambdaAdapter.ts#L77)
-
 ***
 
 ### create()
 
 > `static` **create**(`options`): [`AWSLambdaAdapter`](AWSLambdaAdapter.md)
+
+Defined in: [src/AWSLambdaAdapter.ts:60](https://github.com/stonemjs/aws-lambda-adapter/blob/9de4b38bb7a5afd4d5599dae1399969698a2422d/src/AWSLambdaAdapter.ts#L60)
 
 Creates an instance of the `AWSLambdaAdapter`.
 
@@ -214,7 +202,7 @@ AWS Lambda usage.
 
 ##### options
 
-`AdapterOptions`\<[`RawResponse`](../../declarations/type-aliases/RawResponse.md), `IncomingEvent`, `OutgoingResponse`\>
+`AdapterOptions`\<`IncomingEvent`, `OutgoingResponse`\>
 
 The configuration options for the adapter, including
                  handler resolver, error handling, and other settings.
@@ -224,7 +212,3 @@ The configuration options for the adapter, including
 [`AWSLambdaAdapter`](AWSLambdaAdapter.md)
 
 A fully initialized `AWSLambdaAdapter` instance.
-
-#### Defined in
-
-[src/AWSLambdaAdapter.ts:60](https://github.com/stonemjs/aws-lambda-adapter/blob/f00bc5adf35a7d817c9d8d34c42561c4c82e758d/src/AWSLambdaAdapter.ts#L60)

@@ -1,10 +1,12 @@
-[**AWS Lambda Adapter Documentation v0.0.0**](../../README.md)
+[**AWS Lambda Adapter Documentation v0.0.2**](../../README.md)
 
 ***
 
 [AWS Lambda Adapter Documentation](../../modules.md) / [declarations](../README.md) / RawHttpResponseOptions
 
 # Interface: RawHttpResponseOptions
+
+Defined in: [src/declarations.ts:157](https://github.com/stonemjs/aws-lambda-adapter/blob/9de4b38bb7a5afd4d5599dae1399969698a2422d/src/declarations.ts#L157)
 
 Represents options for configuring a raw HTTP response.
 
@@ -17,7 +19,7 @@ for managing response content, headers, status codes, and streaming files.
 
 ## Indexable
 
- \[`k`: `string` \| `number` \| `symbol`\]: `unknown`
+\[`k`: `string` \| `number` \| `symbol`\]: `unknown`
 
 ## Properties
 
@@ -25,11 +27,9 @@ for managing response content, headers, status codes, and streaming files.
 
 > `optional` **body**: `unknown`
 
+Defined in: [src/declarations.ts:161](https://github.com/stonemjs/aws-lambda-adapter/blob/9de4b38bb7a5afd4d5599dae1399969698a2422d/src/declarations.ts#L161)
+
 The body of the HTTP response. Can be of any type, including strings, objects, or buffers.
-
-#### Defined in
-
-[src/declarations.ts:149](https://github.com/stonemjs/aws-lambda-adapter/blob/f00bc5adf35a7d817c9d8d34c42561c4c82e758d/src/declarations.ts#L149)
 
 ***
 
@@ -37,12 +37,10 @@ The body of the HTTP response. Can be of any type, including strings, objects, o
 
 > `optional` **headers**: `Record`\<`string`, `string`\>
 
+Defined in: [src/declarations.ts:177](https://github.com/stonemjs/aws-lambda-adapter/blob/9de4b38bb7a5afd4d5599dae1399969698a2422d/src/declarations.ts#L177)
+
 Headers to include in the HTTP response.
 Can be provided as key-value pairs.
-
-#### Defined in
-
-[src/declarations.ts:165](https://github.com/stonemjs/aws-lambda-adapter/blob/f00bc5adf35a7d817c9d8d34c42561c4c82e758d/src/declarations.ts#L165)
 
 ***
 
@@ -50,11 +48,9 @@ Can be provided as key-value pairs.
 
 > **statusCode**: `number`
 
+Defined in: [src/declarations.ts:166](https://github.com/stonemjs/aws-lambda-adapter/blob/9de4b38bb7a5afd4d5599dae1399969698a2422d/src/declarations.ts#L166)
+
 The HTTP status code of the response (e.g., `200`, `404`).
-
-#### Defined in
-
-[src/declarations.ts:154](https://github.com/stonemjs/aws-lambda-adapter/blob/f00bc5adf35a7d817c9d8d34c42561c4c82e758d/src/declarations.ts#L154)
 
 ***
 
@@ -62,8 +58,6 @@ The HTTP status code of the response (e.g., `200`, `404`).
 
 > `optional` **statusMessage**: `string`
 
+Defined in: [src/declarations.ts:171](https://github.com/stonemjs/aws-lambda-adapter/blob/9de4b38bb7a5afd4d5599dae1399969698a2422d/src/declarations.ts#L171)
+
 The status message accompanying the HTTP status code (e.g., `OK`, `Not Found`).
-
-#### Defined in
-
-[src/declarations.ts:159](https://github.com/stonemjs/aws-lambda-adapter/blob/f00bc5adf35a7d817c9d8d34c42561c4c82e758d/src/declarations.ts#L159)

@@ -1,9 +1,10 @@
 import { AWS_LAMBDA_HTTP_PLATFORM } from '../constants'
+import { awsLambdaHttpAdapterResolver } from '../resolvers'
+import { AdapterConfig, StoneBlueprint } from '@stone-js/core'
+import { AwsLambdaHttpErrorHandler } from '../AwsLambdaHttpErrorHandler'
 import { IncomingHttpEvent, OutgoingHttpResponse } from '@stone-js/http-core'
 import { IncomingEventMiddleware } from '../middleware/IncomingEventMiddleware'
 import { ServerResponseMiddleware } from '../middleware/ServerResponseMiddleware'
-import { AdapterConfig, AdapterHandlerMiddleware, StoneBlueprint } from '@stone-js/core'
-import { awsLambdaHttpAdapterResolver, awsLambdaHttpErrorHandlerResolver } from '../resolvers'
 
 /**
  * Configuration interface for the AWS Lambda Http Adapter.
@@ -12,16 +13,16 @@ import { awsLambdaHttpAdapterResolver, awsLambdaHttpErrorHandlerResolver } from 
  * customizable options specific to the AWS Lambda platform. This includes
  * alias, resolver, middleware, hooks, and various adapter state flags.
  */
-export interface AwsLambaHttpAdapterConfig extends AdapterConfig {}
+export interface AwsLambdaHttpAdapterConfig extends AdapterConfig {}
 
 /**
  * Blueprint interface for the AWS Lambda Http Adapter.
  *
  * This interface extends `StoneBlueprint` and defines the structure of the
  * AWS Lambda Http adapter blueprint used in the Stone.js framework. It includes
- * a `stone` object with an array of `AwsLambaHttpAdapterConfig` items.
+ * a `stone` object with an array of `AwsLambdaHttpAdapterConfig` items.
  */
-export interface AwsLambaHttpAdapterBlueprint extends StoneBlueprint<IncomingHttpEvent, OutgoingHttpResponse> {}
+export interface AwsLambdaHttpAdapterBlueprint extends StoneBlueprint<IncomingHttpEvent, OutgoingHttpResponse> {}
 
 /**
  * Default blueprint configuration for the AWS Lambda Http Adapter.
@@ -32,7 +33,7 @@ export interface AwsLambaHttpAdapterBlueprint extends StoneBlueprint<IncomingHtt
  * - A default resolver function (currently a placeholder).
  * - Middleware, hooks, and state flags (`current`, `default`, `preferred`).
  */
-export const awsLambaHttpAdapterBlueprint: AwsLambaHttpAdapterBlueprint = {
+export const awsLambdaHttpAdapterBlueprint: AwsLambdaHttpAdapterBlueprint = {
   stone: {
     adapters: [
       {
@@ -40,16 +41,14 @@ export const awsLambaHttpAdapterBlueprint: AwsLambaHttpAdapterBlueprint = {
         resolver: awsLambdaHttpAdapterResolver,
         middleware: [
           { priority: 0, pipe: IncomingEventMiddleware },
-          { priority: 100, pipe: AdapterHandlerMiddleware },
-          { priority: 200, pipe: ServerResponseMiddleware }
+          { priority: 10, pipe: ServerResponseMiddleware }
         ],
         hooks: {},
-        errorHandler: {
-          resolver: awsLambdaHttpErrorHandlerResolver
+        errorHandlers: {
+          default: AwsLambdaHttpErrorHandler
         },
         current: false,
-        default: false,
-        preferred: false
+        default: false
       }
     ]
   }

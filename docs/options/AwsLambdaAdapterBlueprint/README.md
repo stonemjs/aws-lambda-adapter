@@ -1,4 +1,4 @@
-[**AWS Lambda Adapter Documentation v0.0.0**](../../README.md)
+[**AWS Lambda Adapter Documentation v0.0.2**](../../README.md)
 
 ***
 
@@ -6,13 +6,11 @@
 
 # options/AwsLambdaAdapterBlueprint
 
-## Index
+## Interfaces
 
-### Interfaces
+- [AwsLambdaAdapterBlueprint](interfaces/AwsLambdaAdapterBlueprint.md)
+- [AwsLambdaAdapterConfig](interfaces/AwsLambdaAdapterConfig.md)
 
-- [AwsLambaAdapterBlueprint](interfaces/AwsLambaAdapterBlueprint.md)
-- [AwsLambaAdapterConfig](interfaces/AwsLambaAdapterConfig.md)
+## Variables
 
-### Variables
-
-- [awsLambaAdapterBlueprint](variables/awsLambaAdapterBlueprint.md)
+- [awsLambdaAdapterBlueprint](variables/awsLambdaAdapterBlueprint.md)

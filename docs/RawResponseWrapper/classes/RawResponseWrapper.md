@@ -1,10 +1,12 @@
-[**AWS Lambda Adapter Documentation v0.0.0**](../../README.md)
+[**AWS Lambda Adapter Documentation v0.0.2**](../../README.md)
 
 ***
 
 [AWS Lambda Adapter Documentation](../../modules.md) / [RawResponseWrapper](../README.md) / RawResponseWrapper
 
 # Class: RawResponseWrapper
+
+Defined in: [src/RawResponseWrapper.ts:11](https://github.com/stonemjs/aws-lambda-adapter/blob/9de4b38bb7a5afd4d5599dae1399969698a2422d/src/RawResponseWrapper.ts#L11)
 
 Wrapper for generic raw responses.
 
@@ -21,6 +23,8 @@ It implements the `IRawResponseWrapper` interface, ensuring compatibility with t
 ### respond()
 
 > **respond**(): [`RawResponse`](../../declarations/type-aliases/RawResponse.md)
+
+Defined in: [src/RawResponseWrapper.ts:62](https://github.com/stonemjs/aws-lambda-adapter/blob/9de4b38bb7a5afd4d5599dae1399969698a2422d/src/RawResponseWrapper.ts#L62)
 
 Constructs and returns the raw response.
 
@@ -46,15 +50,13 @@ console.log(response); // { body: 'Hello, world!' }
 
 `IRawResponseWrapper.respond`
 
-#### Defined in
-
-[src/RawResponseWrapper.ts:62](https://github.com/stonemjs/aws-lambda-adapter/blob/f00bc5adf35a7d817c9d8d34c42561c4c82e758d/src/RawResponseWrapper.ts#L62)
-
 ***
 
 ### create()
 
 > `static` **create**(`options`): [`RawResponseWrapper`](RawResponseWrapper.md)
+
+Defined in: [src/RawResponseWrapper.ts:32](https://github.com/stonemjs/aws-lambda-adapter/blob/9de4b38bb7a5afd4d5599dae1399969698a2422d/src/RawResponseWrapper.ts#L32)
 
 Factory method to create an instance of `RawResponseWrapper`.
 
@@ -86,7 +88,3 @@ const responseWrapper = RawResponseWrapper.create({
 const response = responseWrapper.respond();
 console.log(response); // { headers: { 'Content-Type': 'application/json' }, body: { message: 'Success' }, statusCode: 200 }
 ```
-
-#### Defined in
-
-[src/RawResponseWrapper.ts:32](https://github.com/stonemjs/aws-lambda-adapter/blob/f00bc5adf35a7d817c9d8d34c42561c4c82e758d/src/RawResponseWrapper.ts#L32)

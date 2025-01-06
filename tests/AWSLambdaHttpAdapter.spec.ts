@@ -6,7 +6,6 @@ import {
   IncomingHttpEvent,
   OutgoingHttpResponse
 } from '@stone-js/http-core'
-import { RawHttpResponse } from '../src/declarations'
 import { AWSLambdaHttpAdapter } from '../src/AWSLambdaHttpAdapter'
 import { RawHttpResponseWrapper } from '../src/RawHttpResponseWrapper'
 import { AwsLambdaAdapterError } from '../src/errors/AwsLambdaAdapterError'
@@ -18,7 +17,7 @@ vi.mock('../src/RawHttpResponseWrapper', () => ({
 }))
 
 describe('AWSLambdaHttpAdapter', () => {
-  let adapterOptions: AdapterOptions<RawHttpResponse, IncomingHttpEvent, OutgoingHttpResponse>
+  let adapterOptions: AdapterOptions<IncomingHttpEvent, OutgoingHttpResponse>
 
   beforeEach(() => {
     adapterOptions = {

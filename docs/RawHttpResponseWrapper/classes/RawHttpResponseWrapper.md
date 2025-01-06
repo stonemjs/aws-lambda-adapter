@@ -1,10 +1,12 @@
-[**AWS Lambda Adapter Documentation v0.0.0**](../../README.md)
+[**AWS Lambda Adapter Documentation v0.0.2**](../../README.md)
 
 ***
 
 [AWS Lambda Adapter Documentation](../../modules.md) / [RawHttpResponseWrapper](../README.md) / RawHttpResponseWrapper
 
 # Class: RawHttpResponseWrapper
+
+Defined in: [src/RawHttpResponseWrapper.ts:12](https://github.com/stonemjs/aws-lambda-adapter/blob/9de4b38bb7a5afd4d5599dae1399969698a2422d/src/RawHttpResponseWrapper.ts#L12)
 
 Wrapper for HTTP raw responses in AWS Lambda.
 
@@ -22,6 +24,8 @@ with the Stone.js framework.
 ### respond()
 
 > **respond**(): [`RawHttpResponseOptions`](../../declarations/interfaces/RawHttpResponseOptions.md)
+
+Defined in: [src/RawHttpResponseWrapper.ts:66](https://github.com/stonemjs/aws-lambda-adapter/blob/9de4b38bb7a5afd4d5599dae1399969698a2422d/src/RawHttpResponseWrapper.ts#L66)
 
 Constructs and returns the raw HTTP response.
 
@@ -49,15 +53,13 @@ console.log(response); // { statusCode: 500, statusMessage: '', body: 'Hello, wo
 
 `IRawResponseWrapper.respond`
 
-#### Defined in
-
-[src/RawHttpResponseWrapper.ts:66](https://github.com/stonemjs/aws-lambda-adapter/blob/f00bc5adf35a7d817c9d8d34c42561c4c82e758d/src/RawHttpResponseWrapper.ts#L66)
-
 ***
 
 ### create()
 
 > `static` **create**(`options`): [`RawHttpResponseWrapper`](RawHttpResponseWrapper.md)
+
+Defined in: [src/RawHttpResponseWrapper.ts:34](https://github.com/stonemjs/aws-lambda-adapter/blob/9de4b38bb7a5afd4d5599dae1399969698a2422d/src/RawHttpResponseWrapper.ts#L34)
 
 Factory method to create an instance of `RawHttpResponseWrapper`.
 
@@ -90,7 +92,3 @@ const responseWrapper = RawHttpResponseWrapper.create({
 const response = responseWrapper.respond();
 console.log(response); // { statusCode: 200, body: '{"message":"Success"}', headers: { 'Content-Type': 'application/json' } }
 ```
-
-#### Defined in
-
-[src/RawHttpResponseWrapper.ts:34](https://github.com/stonemjs/aws-lambda-adapter/blob/f00bc5adf35a7d817c9d8d34c42561c4c82e758d/src/RawHttpResponseWrapper.ts#L34)

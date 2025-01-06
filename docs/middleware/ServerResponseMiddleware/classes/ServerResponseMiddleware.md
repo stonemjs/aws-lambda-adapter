@@ -1,10 +1,12 @@
-[**AWS Lambda Adapter Documentation v0.0.0**](../../../README.md)
+[**AWS Lambda Adapter Documentation v0.0.2**](../../../README.md)
 
 ***
 
 [AWS Lambda Adapter Documentation](../../../modules.md) / [middleware/ServerResponseMiddleware](../README.md) / ServerResponseMiddleware
 
 # Class: ServerResponseMiddleware
+
+Defined in: [src/middleware/ServerResponseMiddleware.ts:13](https://github.com/stonemjs/aws-lambda-adapter/blob/9de4b38bb7a5afd4d5599dae1399969698a2422d/src/middleware/ServerResponseMiddleware.ts#L13)
 
 Middleware for handling server responses and transforming them into the appropriate HTTP responses.
 
@@ -15,33 +17,19 @@ and body content to the HTTP response.
 
 ### new ServerResponseMiddleware()
 
-> **new ServerResponseMiddleware**(`options`): [`ServerResponseMiddleware`](ServerResponseMiddleware.md)
-
-Create a ServerResponseMiddleware.
-
-#### Parameters
-
-##### options
-
-Options for creating the ServerResponseMiddleware.
-
-###### blueprint
-
-`IBlueprint`
+> **new ServerResponseMiddleware**(): [`ServerResponseMiddleware`](ServerResponseMiddleware.md)
 
 #### Returns
 
 [`ServerResponseMiddleware`](ServerResponseMiddleware.md)
 
-#### Defined in
-
-[src/middleware/ServerResponseMiddleware.ts:26](https://github.com/stonemjs/aws-lambda-adapter/blob/f00bc5adf35a7d817c9d8d34c42561c4c82e758d/src/middleware/ServerResponseMiddleware.ts#L26)
-
 ## Methods
 
 ### handle()
 
-> **handle**(`context`, `next`): `Promise`\<[`RawHttpResponseWrapper`](../../../RawHttpResponseWrapper/classes/RawHttpResponseWrapper.md)\>
+> **handle**(`context`, `next`): `Promise`\<[`AwsLambdaHttpAdapterResponseBuilder`](../../../declarations/type-aliases/AwsLambdaHttpAdapterResponseBuilder.md)\>
+
+Defined in: [src/middleware/ServerResponseMiddleware.ts:22](https://github.com/stonemjs/aws-lambda-adapter/blob/9de4b38bb7a5afd4d5599dae1399969698a2422d/src/middleware/ServerResponseMiddleware.ts#L22)
 
 Handles the outgoing response, processes it, and invokes the next middleware in the pipeline.
 
@@ -55,20 +43,16 @@ The adapter context containing the raw event, execution context, and other data.
 
 ##### next
 
-`NextPipe`\<[`AwsLambdaHttpAdapterContext`](../../../declarations/interfaces/AwsLambdaHttpAdapterContext.md), [`RawHttpResponseWrapper`](../../../RawHttpResponseWrapper/classes/RawHttpResponseWrapper.md)\>
+`NextPipe`\<[`AwsLambdaHttpAdapterContext`](../../../declarations/interfaces/AwsLambdaHttpAdapterContext.md), [`AwsLambdaHttpAdapterResponseBuilder`](../../../declarations/type-aliases/AwsLambdaHttpAdapterResponseBuilder.md)\>
 
 The next middleware to be invoked in the pipeline.
 
 #### Returns
 
-`Promise`\<[`RawHttpResponseWrapper`](../../../RawHttpResponseWrapper/classes/RawHttpResponseWrapper.md)\>
+`Promise`\<[`AwsLambdaHttpAdapterResponseBuilder`](../../../declarations/type-aliases/AwsLambdaHttpAdapterResponseBuilder.md)\>
 
-A promise resolving to the processed context.
+A promise resolving to the rawResponseBuilder.
 
 #### Throws
 
 If required components are missing in the context.
-
-#### Defined in
-
-[src/middleware/ServerResponseMiddleware.ts:38](https://github.com/stonemjs/aws-lambda-adapter/blob/f00bc5adf35a7d817c9d8d34c42561c4c82e758d/src/middleware/ServerResponseMiddleware.ts#L38)

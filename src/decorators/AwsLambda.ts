@@ -1,11 +1,12 @@
+import deepmerge from 'deepmerge'
 import { addBlueprint, ClassType } from '@stone-js/core'
-import { awsLambaAdapterBlueprint, AwsLambaAdapterConfig } from '../options/AwsLambdaAdapterBlueprint'
+import { awsLambdaAdapterBlueprint, AwsLambdaAdapterConfig } from '../options/AwsLambdaAdapterBlueprint'
 
 /**
- * Configuration options for the `AwsLambdaAdapter` decorator.
+ * Configuration options for the `AwsLambda` decorator.
  * These options extend the default AWS Lambda adapter configuration.
  */
-export interface AwsLambdaAdapterOptions extends Partial<AwsLambaAdapterConfig> {}
+export interface AwsLambdaOptions extends Partial<AwsLambdaAdapterConfig> {}
 
 /**
  * A Stone.js decorator that integrates the AWS Lambda Adapter with a class.
@@ -21,29 +22,26 @@ export interface AwsLambdaAdapterOptions extends Partial<AwsLambaAdapterConfig> 
  *
  * @example
  * ```typescript
- * import { AwsLambdaAdapter } from '@stone-js/aws-lambda-adapter';
+ * import { AwsLambda } from '@stone-js/aws-lambda-adapter';
  *
- * @AwsLambdaAdapter({
- *   alias: 'MyAWSLambdaAdapter',
+ * @AwsLambda({
+ *   alias: 'MyAWSLambda',
  * })
  * class App {
  *   // Your application logic here
  * }
  * ```
  */
-export const AwsLambdaAdapter = <T extends ClassType = ClassType>(
-  options: AwsLambdaAdapterOptions = {}
+export const AwsLambda = <T extends ClassType = ClassType>(
+  options: AwsLambdaOptions = {}
 ): ((target: T, context: ClassDecoratorContext<T>) => void) => {
   return (target: T, context: ClassDecoratorContext<T>) => {
-    if (awsLambaAdapterBlueprint.stone?.adapters?.[0] !== undefined) {
+    if (awsLambdaAdapterBlueprint.stone?.adapters?.[0] !== undefined) {
       // Merge provided options with the default AWS Lambda adapter blueprint.
-      awsLambaAdapterBlueprint.stone.adapters[0] = {
-        ...awsLambaAdapterBlueprint.stone.adapters[0],
-        ...options
-      }
+      awsLambdaAdapterBlueprint.stone.adapters[0] = deepmerge(awsLambdaAdapterBlueprint.stone.adapters[0], options)
     }
 
     // Add the modified blueprint to the target class.
-    addBlueprint(target, context, awsLambaAdapterBlueprint)
+    addBlueprint(target, context, awsLambdaAdapterBlueprint)
   }
 }

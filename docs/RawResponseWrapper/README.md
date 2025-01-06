@@ -1,4 +1,4 @@
-[**AWS Lambda Adapter Documentation v0.0.0**](../README.md)
+[**AWS Lambda Adapter Documentation v0.0.2**](../README.md)
 
 ***
 
@@ -6,8 +6,6 @@
 
 # RawResponseWrapper
 
-## Index
-
-### Classes
+## Classes
 
 - [RawResponseWrapper](classes/RawResponseWrapper.md)

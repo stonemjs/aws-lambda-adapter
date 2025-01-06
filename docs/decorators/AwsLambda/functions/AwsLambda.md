@@ -1,12 +1,14 @@
-[**AWS Lambda Adapter Documentation v0.0.0**](../../../README.md)
+[**AWS Lambda Adapter Documentation v0.0.2**](../../../README.md)
 
 ***
 
-[AWS Lambda Adapter Documentation](../../../modules.md) / [decorators/AwsLambdaAdapter](../README.md) / AwsLambdaAdapter
+[AWS Lambda Adapter Documentation](../../../modules.md) / [decorators/AwsLambda](../README.md) / AwsLambda
 
-# Function: AwsLambdaAdapter()
+# Function: AwsLambda()
 
-> **AwsLambdaAdapter**\<`T`\>(`options`): (`target`, `context`) => `void`
+> **AwsLambda**\<`T`\>(`options`): (`target`, `context`) => `void`
+
+Defined in: src/decorators/AwsLambda.ts:35
 
 A Stone.js decorator that integrates the AWS Lambda Adapter with a class.
 
@@ -24,7 +26,7 @@ The type of the class being decorated. Defaults to `ClassType`.
 
 ### options
 
-[`AwsLambdaAdapterOptions`](../interfaces/AwsLambdaAdapterOptions.md) = `{}`
+[`AwsLambdaOptions`](../interfaces/AwsLambdaOptions.md) = `{}`
 
 Optional configuration to customize the AWS Lambda Adapter.
 
@@ -51,16 +53,12 @@ A class decorator that applies the AWS Lambda adapter configuration.
 ## Example
 
 ```typescript
-import { AwsLambdaAdapter } from '@stone-js/aws-lambda-adapter';
+import { AwsLambda } from '@stone-js/aws-lambda-adapter';
 
-@AwsLambdaAdapter({
-  alias: 'MyAWSLambdaAdapter',
+@AwsLambda({
+  alias: 'MyAWSLambda',
 })
 class App {
   // Your application logic here
 }
 ```
-
-## Defined in
-
-[src/decorators/AwsLambdaAdapter.ts:34](https://github.com/stonemjs/aws-lambda-adapter/blob/f00bc5adf35a7d817c9d8d34c42561c4c82e758d/src/decorators/AwsLambdaAdapter.ts#L34)

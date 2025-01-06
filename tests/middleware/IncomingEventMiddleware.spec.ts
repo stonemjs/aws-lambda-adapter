@@ -1,15 +1,9 @@
 import proxyAddr from 'proxy-addr'
 import { NextPipe } from '@stone-js/pipeline'
-import { AwsLambdaHttpAdapterContext } from '../../src/declarations'
-import { RawHttpResponseWrapper } from '../../src/RawHttpResponseWrapper'
 import { AwsLambdaAdapterError } from '../../src/errors/AwsLambdaAdapterError'
 import { IncomingEventMiddleware } from '../../src/middleware/IncomingEventMiddleware'
-import {
-  getProtocol,
-  CookieCollection,
-  getHostname,
-  isIpTrusted
-} from '@stone-js/http-core'
+import { getProtocol, CookieCollection, getHostname, isIpTrusted } from '@stone-js/http-core'
+import { AwsLambdaHttpAdapterContext, AwsLambdaHttpAdapterResponseBuilder } from '../../src/declarations'
 
 vi.mock('proxy-addr')
 
@@ -26,7 +20,7 @@ describe('IncomingEventMiddleware', () => {
   let mockBlueprint: any
   let middleware: IncomingEventMiddleware
   let mockContext: AwsLambdaHttpAdapterContext
-  let next: NextPipe<AwsLambdaHttpAdapterContext, RawHttpResponseWrapper>
+  let next: NextPipe<AwsLambdaHttpAdapterContext, AwsLambdaHttpAdapterResponseBuilder>
 
   beforeEach(() => {
     mockBlueprint = {
@@ -94,7 +88,6 @@ describe('IncomingEventMiddleware', () => {
     expect(mockContext.incomingEventBuilder?.add).toHaveBeenCalledWith('headers', mockContext.rawEvent?.headers)
 
     // Handle htt method from requestContext.httpMethod
-    // @ts-expect-error
     mockContext.rawEvent.httpMethod = undefined
     // @ts-expect-error
     mockContext.rawEvent.requestContext.httpMethod = 'GET'
@@ -103,7 +96,6 @@ describe('IncomingEventMiddleware', () => {
     expect(mockContext.incomingEventBuilder?.add).toHaveBeenCalledWith('method', 'GET')
 
     // Handle http method from requestContext.http.method
-    // @ts-expect-error
     mockContext.rawEvent.httpMethod = undefined
     // @ts-expect-error
     mockContext.rawEvent.requestContext.httpMethod = undefined
@@ -114,7 +106,6 @@ describe('IncomingEventMiddleware', () => {
     expect(mockContext.incomingEventBuilder?.add).toHaveBeenCalledWith('method', 'GET')
 
     // Return default http method
-    // @ts-expect-error
     mockContext.rawEvent.httpMethod = undefined
     // @ts-expect-error
     mockContext.rawEvent.requestContext.httpMethod = undefined
@@ -128,7 +119,6 @@ describe('IncomingEventMiddleware', () => {
   it('should extract URL correctly', () => {
     vi.mocked(getProtocol).mockImplementation((a, b, c, d) => 'http')
     vi.mocked(getHostname).mockImplementation((a, b, c) => 'localhost')
-    // @ts-expect-error
     mockContext.rawEvent.path = undefined
     // @ts-expect-error
     mockContext.rawEvent.requestContext.identity.sourceIp = undefined

@@ -1,5 +1,7 @@
+import { RawResponseWrapper } from './RawResponseWrapper'
+import { RawHttpResponseWrapper } from './RawHttpResponseWrapper'
 import { IncomingHttpEvent, IncomingHttpEventOptions, OutgoingHttpResponse } from '@stone-js/http-core'
-import { AdapterContext, IncomingEvent, IncomingEventOptions, OutgoingResponse, RawResponseOptions } from '@stone-js/core'
+import { AdapterContext, IAdapterEventBuilder, IncomingEvent, IncomingEventOptions, OutgoingResponse, RawResponseOptions } from '@stone-js/core'
 
 /**
  * Represents a generic raw response as a key-value pair.
@@ -33,6 +35,16 @@ export type AwsLambdaEventHandlerFunction<RawResponseType = RawResponse> = (
   rawEvent: AwsLambdaEvent,
   context: AwsLambdaContext
 ) => Promise<RawResponseType>
+
+/**
+ * Represents the response builder for the AWS Lambda Adapter.
+ */
+export type AwsLambdaAdapterResponseBuilder = IAdapterEventBuilder<RawResponseOptions, RawResponseWrapper>
+
+/**
+ * Represents the response builder for the AWS Lambda http Adapter.
+ */
+export type AwsLambdaHttpAdapterResponseBuilder = IAdapterEventBuilder<RawHttpResponseOptions, RawHttpResponseWrapper>
 
 /**
  * Represents the structure of an AWS Lambda HTTP event.
