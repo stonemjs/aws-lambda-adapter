@@ -1,6 +1,6 @@
 {
   "name": "@stone-js/aws-lambda-adapter",
-  "version": "0.0.2",
+  "version": "0.0.22",
   "description": "Stone.js AWS Lambda Adapters",
   "author": "Mr. Stone <evensstone@gmail.com>",
   "license": "Apache-2.0",
