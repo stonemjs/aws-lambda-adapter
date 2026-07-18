@@ -12,7 +12,8 @@ import {
   OutgoingResponse,
   RawResponseOptions,
   AdapterEventBuilder,
-  IncomingEventOptions
+  IncomingEventOptions,
+  AdapterEventHandlerType
 } from '@stone-js/core'
 import { RawResponseWrapper } from './RawResponseWrapper'
 import { AwsLambdaAdapterError } from './errors/AwsLambdaAdapterError'
@@ -144,13 +145,28 @@ AwsLambdaAdapterContext
       incomingEventBuilder
     }
 
+    let eventHandler: AdapterEventHandlerType<IncomingEvent, OutgoingResponse> | undefined
+
     try {
-      const eventHandler = this.resolveEventHandler()
+      eventHandler = this.resolveEventHandler()
       await this.executeEventHandlerHooks('onInit', eventHandler)
       return await this.sendEventThroughDestination(context, eventHandler)
     } catch (error: any) {
       const rawResponseBuilder = await this.handleError(error, context)
-      return await this.buildRawResponse({ ...context, rawResponseBuilder })
+      // Pass `eventHandler` so the kernel's `onTerminate` (log flush, connection close) runs on the
+      // error path too — the core only fires it when the handler is provided.
+      const response = await this.buildRawResponse({ ...context, rawResponseBuilder }, eventHandler)
+
+      // AWS only treats an async invocation (SQS, SNS, EventBridge, S3, schedulers) as failed when
+      // the handler REJECTS. Swallowing the error and returning a value deletes the message from
+      // the queue and defeats retries/DLQ/batchItemFailures — silent data loss. So by default we
+      // rethrow. An app that manages failures itself (e.g. returns `batchItemFailures`) can opt out
+      // with `stone.adapter.rethrowOnError = false`.
+      if (this.blueprint.get<boolean>('stone.adapter.rethrowOnError', true)) {
+        throw error
+      }
+
+      return response
     }
   }
 }

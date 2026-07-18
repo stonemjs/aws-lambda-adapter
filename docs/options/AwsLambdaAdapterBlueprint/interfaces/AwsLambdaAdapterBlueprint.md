@@ -18,3 +18,19 @@ a `stone` object with an array of `AwsLambdaAdapterConfig` items.
 
 Allow adding any additional custom properties.
 The value of the custom properties can be of any type, depending on user requirements.
+
+## Properties
+
+### stone
+
+```ts
+stone: Partial<AppConfig<U, V>>;
+```
+
+Application-level settings, including environment, middleware, logging, and service registration.
+
+#### Inherited from
+
+```ts
+StoneBlueprint.stone
+```

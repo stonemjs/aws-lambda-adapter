@@ -108,7 +108,99 @@ AwsLambdaAdapterContext
 >.constructor
 ```
 
+## Properties
+
+### blueprint
+
+```ts
+protected readonly blueprint: IBlueprint;
+```
+
+#### Inherited from
+
+```ts
+Adapter.blueprint
+```
+
+***
+
+### hooks
+
+```ts
+protected readonly hooks: AdapterHookType<AwsLambdaAdapterContext, RawResponse>;
+```
+
+#### Inherited from
+
+```ts
+Adapter.hooks
+```
+
+***
+
+### middleware
+
+```ts
+protected readonly middleware: AdapterMixedPipeType<AwsLambdaAdapterContext, RawResponse>[];
+```
+
+#### Inherited from
+
+```ts
+Adapter.middleware
+```
+
+***
+
+### resolvedErrorHandlers
+
+```ts
+protected readonly resolvedErrorHandlers: Record<string, IAdapterErrorHandler<RawEventType, RawResponseType, ExecutionContextType>>;
+```
+
+#### Inherited from
+
+```ts
+Adapter.resolvedErrorHandlers
+```
+
 ## Methods
+
+### buildRawResponse()
+
+```ts
+protected buildRawResponse(context, eventHandler?): Promise<RawResponse>;
+```
+
+Build the raw response.
+
+#### Parameters
+
+##### context
+
+[`AwsLambdaAdapterContext`](../../declarations/interfaces/AwsLambdaAdapterContext.md)
+
+The event context.
+
+##### eventHandler?
+
+`AdapterEventHandlerType`\<`IncomingEvent`, `OutgoingResponse`\>
+
+The event handler to be run.
+
+#### Returns
+
+`Promise`\<[`RawResponse`](../../declarations/type-aliases/RawResponse.md)\>
+
+The raw response wrapper.
+
+#### Inherited from
+
+```ts
+Adapter.buildRawResponse
+```
+
+***
 
 ### eventListener()
 
@@ -143,6 +235,177 @@ A promise resolving to the processed `RawResponse`.
 
 ***
 
+### executeEventHandlerHooks()
+
+```ts
+protected executeEventHandlerHooks(hook, eventHandler): Promise<void>;
+```
+
+Execute the event handler lifecycle hooks.
+
+#### Parameters
+
+##### hook
+
+`KernelHookName`
+
+The hook to execute.
+
+##### eventHandler
+
+`AdapterEventHandlerType`\<`IncomingEvent`, `OutgoingResponse`\>
+
+The event handler to be run.
+
+#### Returns
+
+`Promise`\<`void`\>
+
+#### Inherited from
+
+```ts
+Adapter.executeEventHandlerHooks
+```
+
+***
+
+### executeHooks()
+
+```ts
+protected executeHooks(
+   name, 
+   context?, 
+error?): Promise<void>;
+```
+
+Execute adapter lifecycle hooks.
+
+#### Parameters
+
+##### name
+
+`AdapterHookName`
+
+The hook's name.
+
+##### context?
+
+[`AwsLambdaAdapterContext`](../../declarations/interfaces/AwsLambdaAdapterContext.md)
+
+The event context.
+
+##### error?
+
+`any`
+
+The error to handle.
+
+#### Returns
+
+`Promise`\<`void`\>
+
+#### Inherited from
+
+```ts
+Adapter.executeHooks
+```
+
+***
+
+### handleError()
+
+```ts
+protected handleError(error, context): Promise<AdapterEventBuilderType<RawResponse>>;
+```
+
+Handle error.
+
+#### Parameters
+
+##### error
+
+`Error`
+
+The error to handle.
+
+##### context
+
+[`AwsLambdaAdapterContext`](../../declarations/interfaces/AwsLambdaAdapterContext.md)
+
+The event context.
+
+#### Returns
+
+`Promise`\<`AdapterEventBuilderType`\<[`RawResponse`](../../declarations/type-aliases/RawResponse.md)\>\>
+
+The raw response.
+
+#### Inherited from
+
+```ts
+Adapter.handleError
+```
+
+***
+
+### handleEvent()
+
+```ts
+protected handleEvent(context, eventHandler): Promise<IAdapterEventBuilder<RawResponseOptions, IRawResponseWrapper<RawResponse>>>;
+```
+
+Handle the event.
+
+#### Parameters
+
+##### context
+
+[`AwsLambdaAdapterContext`](../../declarations/interfaces/AwsLambdaAdapterContext.md)
+
+The event context.
+
+##### eventHandler
+
+`AdapterEventHandlerType`\<`IncomingEvent`, `OutgoingResponse`\>
+
+The event handler to be run.
+
+#### Returns
+
+`Promise`\<`IAdapterEventBuilder`\<`RawResponseOptions`, `IRawResponseWrapper`\<[`RawResponse`](../../declarations/type-aliases/RawResponse.md)\>\>\>
+
+The raw response wrapper.
+
+#### Inherited from
+
+```ts
+Adapter.handleEvent
+```
+
+***
+
+### makePipelineOptions()
+
+```ts
+protected makePipelineOptions(): PipelineOptions<AwsLambdaAdapterContext, AdapterEventBuilderType<RawResponse>>;
+```
+
+Create pipeline options for the Adapter.
+
+#### Returns
+
+`PipelineOptions`\<[`AwsLambdaAdapterContext`](../../declarations/interfaces/AwsLambdaAdapterContext.md), `AdapterEventBuilderType`\<[`RawResponse`](../../declarations/type-aliases/RawResponse.md)\>\>
+
+The pipeline options for transforming the event.
+
+#### Inherited from
+
+```ts
+Adapter.makePipelineOptions
+```
+
+***
+
 ### onStart()
 
 ```ts
@@ -161,6 +424,66 @@ throws an error to prevent misuse.
 #### Throws
 
 If executed outside an AWS Lambda context (e.g., browser).
+
+***
+
+### resolveErrorHandler()
+
+```ts
+protected resolveErrorHandler(error): IAdapterErrorHandler<AwsLambdaEvent, RawResponse, AwsLambdaContext>;
+```
+
+Get the error handler for the given error.
+
+#### Parameters
+
+##### error
+
+`Error`
+
+The error to get the handler for.
+
+#### Returns
+
+`IAdapterErrorHandler`\<[`AwsLambdaEvent`](../../declarations/type-aliases/AwsLambdaEvent.md), [`RawResponse`](../../declarations/type-aliases/RawResponse.md), [`AwsLambdaContext`](../../declarations/type-aliases/AwsLambdaContext.md)\>
+
+The error handler.
+
+#### Throws
+
+IntegrationError
+
+#### Inherited from
+
+```ts
+Adapter.resolveErrorHandler
+```
+
+***
+
+### resolveEventHandler()
+
+```ts
+protected resolveEventHandler(): AdapterEventHandlerType<IncomingEvent, OutgoingResponse>;
+```
+
+Get the event handler for the adapter.
+
+#### Returns
+
+`AdapterEventHandlerType`\<`IncomingEvent`, `OutgoingResponse`\>
+
+The event handler for the adapter.
+
+#### Throws
+
+If the event handler is missing.
+
+#### Inherited from
+
+```ts
+Adapter.resolveEventHandler
+```
 
 ***
 
@@ -198,6 +521,84 @@ If used outside the AWS Lambda environment.
 
 ```ts
 Adapter.run
+```
+
+***
+
+### sendEventThroughDestination()
+
+```ts
+protected sendEventThroughDestination(context, eventHandler): Promise<RawResponse>;
+```
+
+Send the raw event through the destination.
+
+#### Parameters
+
+##### context
+
+[`AwsLambdaAdapterContext`](../../declarations/interfaces/AwsLambdaAdapterContext.md)
+
+The event context.
+
+##### eventHandler
+
+`AdapterEventHandlerType`\<`IncomingEvent`, `OutgoingResponse`\>
+
+The event handler to be run.
+
+#### Returns
+
+`Promise`\<[`RawResponse`](../../declarations/type-aliases/RawResponse.md)\>
+
+Platform-specific response.
+
+#### Throws
+
+IntegrationError
+
+#### Inherited from
+
+```ts
+Adapter.sendEventThroughDestination
+```
+
+***
+
+### validateContextAndEventHandler()
+
+```ts
+protected validateContextAndEventHandler(context, eventHandler): void;
+```
+
+Validate the context and event handler.
+
+#### Parameters
+
+##### context
+
+[`AwsLambdaAdapterContext`](../../declarations/interfaces/AwsLambdaAdapterContext.md)
+
+The context to validate.
+
+##### eventHandler
+
+`AdapterEventHandlerType`\<`IncomingEvent`, `OutgoingResponse`\>
+
+The event handler to validate.
+
+#### Returns
+
+`void`
+
+#### Throws
+
+IntegrationError
+
+#### Inherited from
+
+```ts
+Adapter.validateContextAndEventHandler
 ```
 
 ***

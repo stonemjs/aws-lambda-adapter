@@ -61,15 +61,25 @@ describe('AwsLambdaAdapter', () => {
     expect(await handler({} as any, {})).toEqual({ statusCode: 200 })
   })
 
-  it('should handle errors and build raw response', async () => {
+  it('should rethrow errors by default so async triggers (SQS/SNS/…) retry', async () => {
     const error = new Error('boom')
-    const mockBuilder = vi.fn().mockResolvedValue({ statusCode: 500 })
 
-    vi.spyOn(adapter as any, 'resolveEventHandler').mockImplementation(() => {
-      throw error
-    })
-    vi.spyOn(adapter as any, 'handleError').mockResolvedValue(mockBuilder)
+    vi.spyOn(adapter as any, 'resolveEventHandler').mockImplementation(() => { throw error })
+    vi.spyOn(adapter as any, 'handleError').mockResolvedValue(vi.fn())
     vi.spyOn(adapter as any, 'buildRawResponse').mockResolvedValue({ statusCode: 500 })
+    // blueprint.get('stone.adapter.rethrowOnError', true) → default true
+    ;(adapter as any).blueprint = { get: vi.fn((_k: string, d: any) => d) }
+
+    await expect((adapter as any).eventListener({ test: true }, {})).rejects.toThrow('boom')
+  })
+
+  it('should return the built response instead of rethrowing when rethrowOnError is false', async () => {
+    const error = new Error('boom')
+
+    vi.spyOn(adapter as any, 'resolveEventHandler').mockImplementation(() => { throw error })
+    vi.spyOn(adapter as any, 'handleError').mockResolvedValue(vi.fn())
+    vi.spyOn(adapter as any, 'buildRawResponse').mockResolvedValue({ statusCode: 500 })
+    ;(adapter as any).blueprint = { get: vi.fn(() => false) }
 
     const response = await (adapter as any).eventListener({ test: true }, {})
 

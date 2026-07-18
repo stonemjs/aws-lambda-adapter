@@ -27,7 +27,9 @@ export default [
     ]
   },
   {
-    input: 'dist/**/*.d.ts',
+    // Exclude the previous build's bundled output so a stale `dist/index.d.ts` is never
+    // re-ingested (which silently drops re-exports on incremental builds).
+    input: ['dist/**/*.d.ts', '!dist/index.d.ts'],
     output: [{ format: 'es' , file: 'dist/index.d.ts' }],
     plugins: [
       multi(),
